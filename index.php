@@ -13,6 +13,7 @@ function handleRedirectRequest($db, $code) {
   $code = sanitizeInput($code);
   $result = $db->query("SELECT original FROM links WHERE short = '$code'");
   if ($result->num_rows === 1) redirectToUrl($result->fetch_assoc()["original"]);
+  elseif (isset($_GET['code']) && isset($_GET['url'])) handleShortenRequest($db, $_GET["url"]);
   else sendErrorResponse(404, "Invalid short code");
 }
 
@@ -52,3 +53,4 @@ function sanitizeInput($input) {
 function generateUniqueCode($length) {
   return substr(str_shuffle(str_repeat('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', ceil($length / 62))), 0, $length);
 }
+
