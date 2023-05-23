@@ -1,5 +1,8 @@
 <?php
-$db = new mysqli("host", "user", "pass", "table_name");
+$db = new mysqli("host", "user", "pass", "database_name");
+
+// Create a table in your database called: links
+// Add these columns: original & short
 
 if ($db->connect_error) die("Connection failed: " . $db->connect_error);
 
